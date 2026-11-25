@@ -6,12 +6,12 @@
 #include <unordered_map>
 namespace fs = std::filesystem;
 
-class Sequence { //assuming nucleotide sequence.
+class Sequence {
 	private:
 	    std::unordered_set<char> legalNucleo{'A', 'T', 'G', 'C', 'U', 'N'};
 		struct Metadata {
 		    std::string name;
-			std::string source; //Database or experiment
+			std::string source;
 		};
 		std::string seq;
 		std::unordered_map<char,long> nucleoCount;
@@ -28,7 +28,7 @@ class Sequence { //assuming nucleotide sequence.
 
 				}
 
-		const std::string& GetSequence() { //by reference
+		const std::string& GetSequence() {
 			return seq;
 		};
 
@@ -91,10 +91,13 @@ int main() {
     test_seq.LoadFASTA(file_path);
     std::string loaded_name = test_seq.GetName();
     std::string loaded_seq = test_seq.GetSequence();
+
     std::cout << "Loaded sequence name: " << loaded_name << std::endl;
     std::cout << "Loaded sequence: " << loaded_seq << std::endl;
+
     test_seq.CountNucleotides();
     std::unordered_map <char, long> nucleo_counts = test_seq.GetNucleotideCounts();
+
     std::cout << "Nucleotide counts:" << std::endl;
     for (auto i : nucleo_counts)
         if (i.second != 0)
